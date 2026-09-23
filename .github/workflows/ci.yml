@@ -1,8 +1,11 @@
 name: verify
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
 jobs:
   backend:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -11,7 +14,8 @@ jobs:
       - run: pip install -r backend/requirements.txt pytest==8.4.1 pypdf==5.9.0
       - run: PYTHONPATH=backend pytest backend/tests -q
   frontend:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     defaults:
       run:
         working-directory: frontend

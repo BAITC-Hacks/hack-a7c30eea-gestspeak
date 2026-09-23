@@ -13,8 +13,13 @@ services:
       OLLAMA_URL: http://ollama:11434
       OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:7b}
       GESTSPEAK_API_TOKEN: ${GESTSPEAK_API_TOKEN:-}
-      WHISPER_MODEL_PATH: /app/models/whisper
+      GESTSPEAK_ALLOWED_ORIGINS: ${GESTSPEAK_ALLOWED_ORIGINS:-}
+      WHISPER_MODEL_PATH: ${DOCKER_WHISPER_MODEL_PATH:-/app/models/whisper}
       DIARIZATION_MODEL_PATH: /app/models/diarization
+      SHERPA_MODEL_PATH: /app/models/sherpa
+      AI_DEVICE: ${AI_DEVICE:-cpu}
+      AI_CPU_THREADS: ${AI_CPU_THREADS:-2}
+      WHISPER_COMPUTE: ${WHISPER_COMPUTE:-int8}
     networks: [private]
     restart: unless-stopped
   ollama:
@@ -26,9 +31,34 @@ services:
     environment:
       OLLAMA_NO_CLOUD: '1'
     restart: unless-stopped
+  # Run only during connected preparation; no meeting data is mounted here.
+  ollama-prepare:
+    image: ollama/ollama:0.11.10
+    profiles: [setup]
+    entrypoint: /bin/sh
+    command:
+      - -ec
+      - |
+        ollama serve &
+        server_pid=$$!
+        trap 'kill "$$server_pid" 2>/dev/null || true' EXIT INT TERM
+        tries=0
+        until ollama list >/dev/null 2>&1; do
+          tries=$$((tries + 1))
+          if [ "$$tries" -ge 60 ]; then echo 'Ollama did not start'; exit 1; fi
+          sleep 1
+        done
+        ollama pull "$$OLLAMA_MODEL"
+    volumes:
+      - ollama-models:/root/.ollama
+    environment:
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:7b}
+      OLLAMA_NO_CLOUD: '1'
+    networks: [preparation]
 volumes:
   gestspeak-data:
   ollama-models:
 networks:
+  preparation: {}
   private:
     internal: true

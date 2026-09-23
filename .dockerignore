@@ -1,5 +1,6 @@
 .git
 .venv
+.venv-ai
 frontend/node_modules
 frontend/.npm-cache
 frontend/dist
@@ -11,3 +12,5 @@ output
 **/__pycache__
 **/.pytest_cache
 .env
+**/.env
+**/.env.*

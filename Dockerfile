@@ -8,9 +8,9 @@ RUN npm run build && mkdir -p /web/public-export && if [ -f /web/out/index.html 
 FROM python:3.11-slim
 WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg libgomp1 && rm -rf /var/lib/apt/lists/*
-COPY backend/requirements.txt backend/requirements-ai.txt /tmp/
+COPY backend/requirements.txt backend/requirements-ai.txt backend/requirements-light.txt /tmp/
 ARG WITH_AI=0
-RUN pip install --no-cache-dir -r /tmp/requirements.txt && if [ "$WITH_AI" = "1" ]; then pip install --no-cache-dir -r /tmp/requirements-ai.txt; fi
+RUN pip install --no-cache-dir -r /tmp/requirements.txt && if [ "$WITH_AI" = "1" ]; then pip install --no-cache-dir -r /tmp/requirements-ai.txt; elif [ "$WITH_AI" = "light" ]; then pip install --no-cache-dir -r /tmp/requirements-light.txt; fi
 COPY backend /app/backend
 COPY examples /app/examples
 COPY assets /app/assets
@@ -19,4 +19,5 @@ ENV PYTHONPATH=/app/backend HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 HF_HUB_DISAB
 RUN useradd --uid 10001 --create-home gestspeak && mkdir /app/data /app/models && chown -R gestspeak /app/data
 USER gestspeak
 EXPOSE 8000
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 CMD python -c "import os, urllib.request; token=os.getenv('GESTSPEAK_API_TOKEN',''); urllib.request.urlopen(urllib.request.Request('http://127.0.0.1:8000/api/health',headers={'Authorization':'Bearer '+token} if token else {}),timeout=8)"
 CMD ["uvicorn", "gestspeak.main:app", "--host", "0.0.0.0", "--port", "8000"]
