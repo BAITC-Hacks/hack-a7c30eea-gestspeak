@@ -437,6 +437,7 @@ export default function Page() {
                     {a.needs_review && <span className="dot amber" />}
                     {a.needs_review ? "Нужна проверка" : a.topic}
                   </div>
+                  {view !== "detail" && <button className="source-link" onClick={() => openMeeting(a.meeting_id)} title="Открыть исходное совещание">{a.meeting_title}</button>}
                 </TableCell>
                 <TableCell>
                   <div className="owner">
@@ -632,6 +633,9 @@ export default function Page() {
                   <button className="primary" onClick={() => setCreate(true)}>
                     <Plus size={18} />
                     Новое совещание
+                  </button>
+                  <button className="ghost-button" onClick={() => { setCreateMode("text"); setCreate(true); }}>
+                    <FileText size={16} /> Проверить на тексте
                   </button>
                   <button
                     className="text-button"
@@ -1922,6 +1926,7 @@ function CreateMeeting({
                     }}>{sample.label}</button>
                   ))}
                 </div>
+                <p className="sample-help">Выберите пример, проверьте дату и сформируйте новый протокол.</p>
               </div>
               <label className="field">
                 Транскрипт

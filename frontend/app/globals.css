@@ -1275,6 +1275,9 @@ footer .text-button {
 .sample-picker > div { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 8px; }
 .sample-button { border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; background: #f6f5f4; color: #49443e; }
 .sample-button:hover { background: #e6f3fe; color: #0075de; }
+.sample-help { margin-top: 9px; color: #696969; font-size: 12px; }
+.source-link { display: block; margin-top: 7px; color: #696969; font-size: 12px; text-align: left; max-width: 100%; }
+.source-link:hover { color: #0075de; text-decoration: underline; }
 .file-drop p,
 .record-panel p {
   font-size: 12px;
