@@ -1,0 +1,4 @@
+# Optional CPU audio stack; no torch. Install after requirements.txt.
+# Python 3.9+; the tested laptop uses Intel macOS / Python 3.9.
+faster-whisper==1.2.1
+sherpa-onnx==1.12.26

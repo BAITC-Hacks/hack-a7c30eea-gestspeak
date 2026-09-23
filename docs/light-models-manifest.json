@@ -1,0 +1,35 @@
+{
+  "profile": "CPU smoke: Whisper tiny + sherpa-onnx",
+  "artifacts": [
+    {
+      "file": "models/whisper-tiny/config.json",
+      "bytes": 2249,
+      "sha256": "a73a28cdfe1c43ccc7202fa333d1f89c202477271407ae9a7f19afa52039cac8"
+    },
+    {
+      "file": "models/whisper-tiny/model.bin",
+      "bytes": 75538270,
+      "sha256": "dcb76c6586fc06cbdac6dd21f14cfd129cc4cdd9dce19bf4ffa62e59cbe6e6d1"
+    },
+    {
+      "file": "models/whisper-tiny/tokenizer.json",
+      "bytes": 2203239,
+      "sha256": "fb7b63191e9bb045082c79fd742a3106a12c99513ab30df4a0d47fa6cb6fd0ab"
+    },
+    {
+      "file": "models/whisper-tiny/vocabulary.txt",
+      "bytes": 459861,
+      "sha256": "34ce3fe1c5041027b3f8d42912270993f986dbc4bb34cf27f951e34a1e453913"
+    },
+    {
+      "file": "models/sherpa/embedding.onnx",
+      "bytes": 40257283,
+      "sha256": "ad4a1802485d8b34c722d2a9d04249662f2ece5d28a7a039063ca22f515a789e"
+    },
+    {
+      "file": "models/sherpa/segmentation.onnx",
+      "bytes": 1540506,
+      "sha256": "d582f4b4c6b48205de7e0643c57df0df5615a3c176189be3fc461e9d18827b5d"
+    }
+  ]
+}
