@@ -3,10 +3,12 @@ import os
 import sqlite3
 from pathlib import Path
 from datetime import datetime, timezone
+from contextlib import contextmanager
 
 DATA = Path(os.environ.get("GESTSPEAK_DATA", "data")).resolve()
 
 
+@contextmanager
 def connection():
     DATA.mkdir(parents=True, exist_ok=True, mode=0o700)
     conn = sqlite3.connect(DATA / "gestspeak.sqlite3", timeout=30)
@@ -14,7 +16,11 @@ def connection():
     conn.execute("PRAGMA journal_mode=WAL")
     conn.execute("CREATE TABLE IF NOT EXISTS meetings(id TEXT PRIMARY KEY, body TEXT NOT NULL, created TEXT NOT NULL)")
     conn.execute("CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY, meeting_id TEXT, event TEXT, at TEXT)")
-    return conn
+    try:
+        with conn:
+            yield conn
+    finally:
+        conn.close()
 
 
 def save(meeting, event="updated"):

@@ -7,6 +7,7 @@ from contextlib import asynccontextmanager
 from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Optional
+from urllib.parse import urlsplit
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form, Request
 from fastapi.responses import Response, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -20,6 +21,17 @@ CAPACITY = threading.BoundedSemaphore(4)
 LOCK = threading.RLock()
 MAX_BYTES = 250 * 1024 * 1024
 ORIGINS = ['http://localhost:3000','http://127.0.0.1:3000','http://localhost:8000','http://127.0.0.1:8000']
+for configured_origin in os.environ.get('GESTSPEAK_ALLOWED_ORIGINS', '').split(','):
+    configured_origin = configured_origin.strip().rstrip('/')
+    if not configured_origin:
+        continue
+    parsed_origin = urlsplit(configured_origin)
+    if (parsed_origin.scheme not in ('http', 'https') or not parsed_origin.hostname
+            or '*' in configured_origin or parsed_origin.username or parsed_origin.password
+            or parsed_origin.path or parsed_origin.query or parsed_origin.fragment):
+        raise ValueError('GESTSPEAK_ALLOWED_ORIGINS: укажите точные HTTP(S) origins через запятую')
+    if configured_origin not in ORIGINS:
+        ORIGINS.append(configured_origin)
 
 @asynccontextmanager
 async def lifespan(app):
@@ -79,11 +91,15 @@ def run(mid, segments=None, path=None, language='auto', speakers=None):
         update('analysis',75)
         m=meeting(mid)
         # Persist the transcript before extraction so model errors never lose recognized speech.
-        m.update(segments=[s.model_dump() for s in segments],duration=duration)
+        m.update(segments=[s.model_dump() for s in segments])
+        if duration is not None: m["duration"] = duration
+        if not m["participants"]:
+            m["participants"] = list(dict.fromkeys(s.speaker for s in segments if not s.speaker.startswith("SPEAKER_")))
         store.save(m,'transcribed')
         analysis,mode,warnings=engine.analyze(segments,date.fromisoformat(m['meeting_date']),m['participants'])
         with LOCK:
             m=meeting(mid)
+            m.pop("error", None)
             m.update(**analysis.model_dump(mode='json'),engine=mode,warnings=warnings,status='ready',stage='ready',progress=100)
             store.save(m,'ready')
     except Exception as exc:
@@ -148,7 +164,7 @@ def patch_action(mid:str,aid:str,body:ActionPatch):
         a=next((a for a in m['actions'] if a['id']==aid),None)
         if not a: raise HTTPException(404,'Поручение не найдено')
         changes=body.model_dump(mode='json',exclude_unset=True)
-        if 'title' in changes and changes['title'] is None or 'status' in changes and changes['status'] is None: raise HTTPException(422,'Пустое значение недопустимо')
+        if any(k in changes and changes[k] is None for k in ('title', 'status', 'needs_review')): raise HTTPException(422,'Пустое значение недопустимо')
         a.update(changes)
         if any(k in changes for k in ('title','owner','due_date')): a['needs_review']=True
         if changes.get('needs_review') is False:
@@ -177,9 +193,15 @@ def reanalyze(mid:str):
         if not m['segments']: raise HTTPException(400,'Нет транскрипта')
         if not CAPACITY.acquire(False): raise HTTPException(429,'Очередь заполнена')
         # Keep old annotations until successful extraction; this action is explicit in UI.
-        m.update(status='queued',stage='queued',progress=0,source='text')
-        store.save(m,'reanalyze')
-        POOL.submit(run,mid,[Segment.model_validate(s) for s in m['segments']])
+        m.pop('error', None)
+        m.update(status='queued',stage='queued',progress=0)
+        try:
+            segments = [Segment.model_validate(s) for s in m['segments']]
+            store.save(m,'reanalyze')
+            POOL.submit(run,mid,segments)
+        except Exception:
+            CAPACITY.release()
+            raise
         return m
 
 @app.get('/api/meetings/{mid}/export/{fmt}')

@@ -1,5 +1,9 @@
 from typing import List, Optional, Literal
-from pydantic import BaseModel, Field
+from pydantic import BaseModel as PydanticBaseModel, Field, ConfigDict
+
+
+class BaseModel(PydanticBaseModel):
+    model_config = ConfigDict(str_strip_whitespace=True)
 from datetime import date
 
 

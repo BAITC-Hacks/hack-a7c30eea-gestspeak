@@ -1,6 +1,4 @@
 import os
-import tempfile
-os.environ['GESTSPEAK_DATA']=tempfile.mkdtemp(prefix='gestspeak-tests-')
 from datetime import date
 from io import BytesIO
 import pytest
