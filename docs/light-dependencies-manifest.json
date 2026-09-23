@@ -1,0 +1,135 @@
+{
+  "platform": "macOS x86_64 / CPython 3.9",
+  "artifacts": [
+    {
+      "wheel": "annotated_doc-0.0.5-py3-none-any.whl",
+      "bytes": 5302,
+      "sha256": "117bac03a25ede5df5440e855b32d556049ca169ead221505badf432fed4b101"
+    },
+    {
+      "wheel": "av-15.1.0-cp39-cp39-macosx_13_0_x86_64.whl",
+      "bytes": 26976225,
+      "sha256": "4a2a52a56cd8c6a8f0f005d29c3a0ebc1822d31b0d0f39990c4c8e3a69d6c96e"
+    },
+    {
+      "wheel": "coloredlogs-15.0.1-py2.py3-none-any.whl",
+      "bytes": 46018,
+      "sha256": "612ee75c546f53e92e70049c9dbfcc18c935a2b9a53b66085ce9ef6a6e5c0934"
+    },
+    {
+      "wheel": "ctranslate2-4.8.2-cp39-cp39-macosx_11_0_x86_64.whl",
+      "bytes": 11928220,
+      "sha256": "94f4a0c2a9641b18a2d1b873ad615efe95a5417a88f63470f3ca11088c9754df"
+    },
+    {
+      "wheel": "faster_whisper-1.2.1-py3-none-any.whl",
+      "bytes": 1118909,
+      "sha256": "79a66ad50688c0b794dd501dc340a736992a6342f7f95e5811be60b5224a26a7"
+    },
+    {
+      "wheel": "filelock-3.19.1-py3-none-any.whl",
+      "bytes": 15988,
+      "sha256": "d38e30481def20772f5baf097c122c3babc4fcdb7e14e57049eb9d88c6dc017d"
+    },
+    {
+      "wheel": "flatbuffers-25.12.19-py2.py3-none-any.whl",
+      "bytes": 26661,
+      "sha256": "7634f50c427838bb021c2d66a3d1168e9d199b0607e6329399f04846d42e20b4"
+    },
+    {
+      "wheel": "fsspec-2025.10.0-py3-none-any.whl",
+      "bytes": 200966,
+      "sha256": "7c7712353ae7d875407f97715f0e1ffcc21e33d5b24556cb1e090ae9409ec61d"
+    },
+    {
+      "wheel": "hf_xet-1.6.0-cp38-abi3-macosx_10_12_x86_64.whl",
+      "bytes": 4071729,
+      "sha256": "633dc0cd71d32da58ab8c03ad38e2fac452c15c2b0a2866ebf6ededfe0a5061d"
+    },
+    {
+      "wheel": "huggingface_hub-1.8.0-py3-none-any.whl",
+      "bytes": 625208,
+      "sha256": "d3eb5047bd4e33c987429de6020d4810d38a5bef95b3b40df9b17346b7f353f2"
+    },
+    {
+      "wheel": "humanfriendly-10.0-py2.py3-none-any.whl",
+      "bytes": 86794,
+      "sha256": "1697e1a8a8f550fd43c2865cd84542fc175a61dcb779b6fee18cf6b6ccba1477"
+    },
+    {
+      "wheel": "markdown_it_py-3.0.0-py3-none-any.whl",
+      "bytes": 87528,
+      "sha256": "355216845c60bd96232cd8d8c40e8f9765cc86f46880e43a8fd22dc1a1a8cab1"
+    },
+    {
+      "wheel": "mdurl-0.1.2-py3-none-any.whl",
+      "bytes": 9979,
+      "sha256": "84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8"
+    },
+    {
+      "wheel": "mpmath-1.3.0-py3-none-any.whl",
+      "bytes": 536198,
+      "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c"
+    },
+    {
+      "wheel": "numpy-2.0.2-cp39-cp39-macosx_14_0_x86_64.whl",
+      "bytes": 6906494,
+      "sha256": "97032a27bd9d8988b9a97a8c4d2c9f2c15a81f61e2f21404d7e8ef00cb5be729"
+    },
+    {
+      "wheel": "onnxruntime-1.19.2-cp39-cp39-macosx_11_0_universal2.whl",
+      "bytes": 16776457,
+      "sha256": "006c8d326835c017a9e9f74c9c77ebb570a71174a1e89fe078b29a557d9c3848"
+    },
+    {
+      "wheel": "protobuf-6.33.6-cp39-abi3-macosx_10_9_universal2.whl",
+      "bytes": 427737,
+      "sha256": "9720e6961b251bde64edfdab7d500725a2af5280f3f4c87e57c0208376aa8c3a"
+    },
+    {
+      "wheel": "pyyaml-6.0.3-cp39-cp39-macosx_10_13_x86_64.whl",
+      "bytes": 184450,
+      "sha256": "b865addae83924361678b652338317d1bd7e79b1f4596f96b96c77a5a34b34da"
+    },
+    {
+      "wheel": "rich-15.0.0-py3-none-any.whl",
+      "bytes": 310654,
+      "sha256": "33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb"
+    },
+    {
+      "wheel": "shellingham-1.5.4-py2.py3-none-any.whl",
+      "bytes": 9755,
+      "sha256": "7ecfff8f2fd72616f7481040475a65b2bf8af90a56c89140852d1120324e8686"
+    },
+    {
+      "wheel": "sherpa_onnx-1.12.26-cp39-cp39-macosx_10_15_x86_64.whl",
+      "bytes": 2200564,
+      "sha256": "008f5908a51d9f3d21d26b95aa32eb356e02c4212c2509316f758b9cf016ac87"
+    },
+    {
+      "wheel": "sherpa_onnx_core-1.12.26-py3-none-macosx_10_15_x86_64.whl",
+      "bytes": 24807960,
+      "sha256": "953e58bb8ebda609e93a24f0ceeafa89454842fbf1e26a533e27fd2fef80189c"
+    },
+    {
+      "wheel": "sympy-1.14.0-py3-none-any.whl",
+      "bytes": 6299353,
+      "sha256": "e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5"
+    },
+    {
+      "wheel": "tokenizers-0.22.2-cp39-abi3-macosx_10_12_x86_64.whl",
+      "bytes": 3100275,
+      "sha256": "544dd704ae7238755d790de45ba8da072e9af3eea688f698b137915ae959281c"
+    },
+    {
+      "wheel": "tqdm-4.70.1-py3-none-any.whl",
+      "bytes": 80199,
+      "sha256": "c293e525e6fef9c20e8728fd4612df02a0aa31bb5fe91ecd93e123b1b7bffa73"
+    },
+    {
+      "wheel": "typer-0.23.2-py3-none-any.whl",
+      "bytes": 56834,
+      "sha256": "e9c8dc380f82450b3c851a9b9d5a0edf95d1d6456ae70c517d8b06a50c7a9978"
+    }
+  ]
+}

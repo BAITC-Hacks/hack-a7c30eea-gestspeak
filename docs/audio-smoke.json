@@ -1,0 +1,35 @@
+{
+  "input": "synthetic-russian.wav",
+  "language": "ru",
+  "duration_seconds": 9.613125,
+  "processing_seconds": 33.7,
+  "runtime_network": "offline model loading",
+  "segments": [
+    {
+      "id": "s1",
+      "speaker": "SPEAKER_01",
+      "text": "Коллеги, начинаем совещание, подготовить отчет по безопасности, ответственный темур, срог до 38 сентября, спасибо!",
+      "start": 0.0,
+      "end": 9.28
+    }
+  ],
+  "status": "passed_technical_smoke",
+  "checked_at": "2026-09-23T12:46:46.819953+00:00",
+  "model": "Systran/faster-whisper-tiny",
+  "diarization": "sherpa-onnx / pyannote segmentation int8 + NeMo TitaNet Small",
+  "compute": "CPU int8, 2 threads",
+  "expected_text": "Коллеги, начинаем совещание. Подготовить отчёт по безопасности. Ответственный Тимур. Срок до тридцатого сентября. Спасибо.",
+  "quality_notes": [
+    "Technical smoke passed: a real local audio file produced timed speech with an anonymous speaker cluster.",
+    "Tiny misrecognized the name and deadline: темур and 38 сентября. Do not use tiny output without human review.",
+    "Russian/Kazakh/mixed WER and diarization DER were not measured. This synthetic one-speaker test does not validate multi-speaker quality."
+  ],
+  "versions": {
+    "faster-whisper": "1.2.1",
+    "sherpa-onnx": "1.12.26",
+    "ctranslate2": "4.8.2",
+    "onnxruntime": "1.19.2",
+    "numpy": "2.0.2",
+    "av": "15.1.0"
+  }
+}

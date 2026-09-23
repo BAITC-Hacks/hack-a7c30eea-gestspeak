@@ -28,7 +28,7 @@ def _pipeline(num_speakers=None):
     config = sherpa_onnx.OfflineSpeakerDiarizationConfig(
         segmentation=sherpa_onnx.OfflineSpeakerSegmentationModelConfig(
             pyannote=sherpa_onnx.OfflineSpeakerSegmentationPyannoteModelConfig(
-                model=str(segmentation), window_shift_ratio=0.1,
+                model=str(segmentation),
             ),
             num_threads=threads, provider="cpu",
         ),
